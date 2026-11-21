@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { Input, Scene } from "phaser";
 
 export class GameScene extends Scene {
   camera: Phaser.Cameras.Scene2D.Camera;
@@ -38,12 +38,16 @@ export class GameScene extends Scene {
 
     const body = this.player.body as Phaser.Physics.Arcade.Body;
 
-    if(this.wasd.A.isDown){
-        body.setVelocityX(-speed);
-    } else if(this.wasd.D.isDown){
-        body.setVelocityX(speed);
-    } else{
-        body.setVelocityX(0);
+    if (this.wasd.A.isDown) {
+      body.setVelocityX(-speed);
+    } else if (this.wasd.D.isDown) {
+      body.setVelocityX(speed);
+    } else {
+      body.setVelocityX(0);
+    }
+
+    if (body.touching.down && Input.Keyboard.JustDown(this.wasd.W)) {
+      body.setVelocityY(-speed);
     }
   }
 }
